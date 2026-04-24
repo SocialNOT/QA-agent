@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-graphite-900: #0f0f11;
+  --color-graphite-800: #18181b;
+  --color-graphite-700: #27272a;
+  
+  --color-accent-primary: #3b82f6;
+  --color-accent-secondary: #8b5cf6;
+  --color-accent-success: #10b981;
+  --color-accent-warning: #f59e0b;
+  --color-accent-danger: #ef4444;
+}
+
+body {
+  @apply bg-zinc-50 text-zinc-800 dark:bg-[#0f0f11] dark:text-[#e4e4e7];
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle grid texture */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar for terminal feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-zinc-100 dark:bg-[#0f0f11];
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-300 dark:bg-[#27272a] rounded-md;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-400 dark:bg-[#3f3f46];
+}
+
+@keyframes gradient-text {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-text 3s linear infinite;
+}
+
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  header, footer, .no-print {
+    display: none !important;
+  }
+  
+  main {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  
+  .dark {
+    color-scheme: light !important;
+  }
+  
+  /* Remove dark mode backgrounds but keep colors */
+  .dark\:bg-black, .bg-black {
+    background-color: white !important;
+  }
+  
+  .dark\:text-zinc-300, .text-zinc-300 {
+    color: #3f3f46 !important;
+  }
+  
+  .dark\:border-zinc-800, .border-zinc-800 {
+    border-color: #e4e4e7 !important;
+  }
+  
+  /* Ensure grid view and doc view expand fully */
+  .overflow-y-auto {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+  
+  /* Page breaks */
+  .break-inside-avoid {
+    break-inside: avoid;
+  }
+}
